@@ -9,9 +9,11 @@
 <pre>
     *)+create data base
     *)+tune database (indexes, memory, etc.)
+    *)forming test data
 </pre>
 <p>3)start coding</p>
 <pre>
+    *)routing
     *)choose front lib
     *)tune gulp file
     *)choose template tools
