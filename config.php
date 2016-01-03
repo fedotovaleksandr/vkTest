@@ -6,6 +6,7 @@
  * Time: 20:26
  */
 $config = [
+    '__ROOTDIR__' => __DIR__,
     'databases' => [
         'db_vktest' => [
             'host' => '127.0.0.1',
@@ -14,18 +15,26 @@ $config = [
             'port' => 3306
         ]
     ],
-    'route'=>[
-        '/^\/$/i' =>[
+    'route' => [
+        '/^\/$/i' => [
             'type' => 'GET',
             'action' => 'homeAction'
         ],
-        '^/insert$' =>[
+        '^/insert$' => [
             'type' => 'GET',
             'action' => ''
-            ],
+        ],
         '^/update$' => [
             'type' => 'GET',
             'action' => ''
         ]
+    ],
+    /**
+     * @todo set auto_reload = false
+     */
+    'twig' => [
+        'cache' => __DIR__ . '/tmp',
+        'auto_reload' => true
     ]
+
 ];

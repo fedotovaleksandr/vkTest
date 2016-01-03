@@ -1,0 +1,105 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#tablegrid").dataTable({
+            'processing': true,
+            'serverSide': true,
+            "order": [[0, "desc"]],
+            'ajax': '/list',
+            'columns': [
+                {
+                    "orderable": true,
+                    "data": "iditem"
+
+                },
+
+                {
+                    "orderable": false,
+                    "data": "name"
+                },
+
+                {
+                    "orderable": false,
+                    "data": "description"
+                },
+
+                {
+                    "orderable": true,
+                    "data": "price"
+                },
+                {
+                    "orderable": false,
+                    "data": "url",
+                    "render": function (data, type, full, meta) {
+                        if (data == null)
+                            data = '/static/no_image.png';
+
+                        element = '<div class="user-panel">' +
+                                '<div class="pull-left image">' +
+                                '<img src="' + data + '" class="img-circle" alt="Product Image">' +
+                                '</div>' +
+                                '</div>';
+                        return element;
+                    }
+
+                },
+                {
+                    "orderable": false,
+                    "data": null,
+                    "defaultContent": null,
+                }
+            ],
+            rowCallback: function (row, data) {
+
+                actions = '<button data-url="/delete" data-preaction="confirm_delete" data-tableid="tablegridthread" data-field="threadid" class="btn btn-danger btn-xs ajaxbutton">Удалить</button>';
+                $('td:eq(5)', row).html(actions);
+            },
+            dom: 'T<"clear">lfrtip',
+            tableTools: {
+                "sRowSelect": "multi",
+                "aButtons": [
+                    {
+                        "sExtends": "select_all",
+                        "sButtonText": 'Выделить все',
+                        "fnInit": function (nButton, oConfig) {
+                            $(nButton).addClass('btn btn-sm ');
+                        }
+                    },
+                    {
+                        "sExtends": "select_none",
+                        "sButtonText": 'Убрать Выделение',
+                        "fnInit": function (nButton, oConfig) {
+                            $(nButton).addClass('btn btn-sm ');
+                        }
+                    },
+                    {
+                        "sExtends": "print",
+                        "sButtonText": 'Удалить Выделенные',
+                        "fnInit": function (nButton, oConfig) {
+                            $(nButton).addClass('btn btn-sm btn-danger');
+                        },
+                        "fnClick": function (nButton, oConfig) {
+                            /**
+                             *
+                             * @param object
+                             *  -datatableid
+                             *  -idname
+                             *  -url
+                             *  -helpdata
+                             */
+                            var current = new $.MultiSelectButton({
+                                datatableid: 'tablegrid',
+                                idname: 'idproduct',
+                                url: '/delete'
+                            })
+                            if (confirm_delete())
+                                current.start();
+                        }
+                    }
+                ]
+            }
+        });
+        $("#tablegrid_filter").css("display", "none");
+    });
+</script>
