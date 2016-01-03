@@ -6,23 +6,25 @@
  * Time: 22:48
  */
 require_once __DIR__ . '/../../config.php';
-require_once  __DIR__ . "/../StoreBundle/actionProvider.php";
-$router = function () use ($config)
-{
+require_once __DIR__ . "/../StoreBundle/actionProvider.php";
+/**
+ * use config
+ */
+function router()  {
+    global $config;
+
     $uri = $_SERVER['REQUEST_URI'];
+    $type = $_SERVER['REQUEST_METHOD'];
     $routers = $config['route'];
     $action = null;
-
-
     foreach ($routers as $key => $value) {
-
-
         if (preg_match($key, $uri)) {
-            $action = $value['action'];
-            $action();
+            if ($type === $value['type']) {
+                $action = $value['action'];
+                $action();
+                break;
+            }
         }
-
-
     }
     if (empty($action)) {
         echo 'not found';
