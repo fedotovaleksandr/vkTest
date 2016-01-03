@@ -20,13 +20,30 @@ $config = [
             'type' => 'GET',
             'action' => 'homeAction'
         ],
-        '^/insert$' => [
+        '/^\/list.+$/i' => [
             'type' => 'GET',
-            'action' => ''
+            'action' => 'listAction'
         ],
-        '^/update$' => [
+        '/^\/new$/i' => [
             'type' => 'GET',
-            'action' => ''
+            'action' => 'newAction'
+        ],
+        '/^\/edit\?id=\d+$/i' => [
+            'type' => 'GET',
+            'action' => 'editAction'
+        ],
+        '/^\/update$/i' => [
+            'type' => 'POST',
+            'action' => 'updateAction'
+        ],
+        '/^\/delete$/i' => [
+            'type' => 'POST',
+            'action' => 'deleteAction'
+        ]
+        ,
+        '/^\/create$/i' => [
+            'type' => 'POST',
+            'action' => 'createAction'
         ]
     ],
     /**
