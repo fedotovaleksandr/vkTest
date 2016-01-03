@@ -1,4 +1,4 @@
-{% extends 'Layouts/base.html.twig' %}
+{% extends 'Layout/base.html.twig' %}
 
 {% block stylesheets %}
     <!-- bootstrap 3.0.2 -->
@@ -30,7 +30,7 @@
 {% block body_params %} class="skin-blue-light sidebar-mini" {% endblock %}
 
 {% block header %}
-{% include 'Layouts/ag_header.html.twig' %}
+{% include 'Layout/ag_header.html.twig' %}
 {% endblock %}
 
 {% block main_menu %}
@@ -50,7 +50,7 @@
 {% endblock %}
 
 {% block footer %}
-{% include 'Layouts/ag_footer.html.twig' %}
+{% include 'Layout/ag_footer.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
