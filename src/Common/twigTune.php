@@ -7,6 +7,9 @@
  */
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../../lib/Twig/Autoloader.php';
+/**
+ * @return Twig_Environment
+ */
 $getTwig = function () use ($config) {
     $params= $config['twig'];
     Twig_Autoloader::register();
@@ -15,5 +18,6 @@ $getTwig = function () use ($config) {
         'cache' => $params['cache'],
         'auto_reload' => $params['auto_reload']
     ));
+    $twig->addGlobal('session',$_SESSION);
     return $twig;
 };
