@@ -1,5 +1,6 @@
 <form action="{{ action }}" method="post" id="item_form">
     {% if item is defined %}
+        <input type="hidden" name="iditem" value="{{ item.iditem }}">
         <div class="form-group">
             <label>Название</label>
             <input type="text" name="name" required class="form-control" maxlength="60" placeholder="Enter Name..." value="{{ item.name }}">

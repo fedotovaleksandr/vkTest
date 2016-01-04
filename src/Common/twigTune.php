@@ -10,7 +10,8 @@ require_once __DIR__ . '/../../lib/Twig/Autoloader.php';
 /**
  * @return Twig_Environment
  */
-$getTwig = function () use ($config) {
+function getTwig()  {
+    global $config;
     $params= $config['twig'];
     Twig_Autoloader::register();
     $loader = new Twig_Loader_Filesystem(__DIR__ . '/../Resources/Twig');

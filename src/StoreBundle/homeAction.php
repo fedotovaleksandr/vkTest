@@ -10,9 +10,7 @@ require_once __DIR__ . "/../Common/twigTune.php";
 
 function homeAction()
 {
-    global $getTwig;
-    $twig = $getTwig();
-
+    $twig = getTwig();
     echo $twig->render('/View/home.html.twig', []);
 
 }

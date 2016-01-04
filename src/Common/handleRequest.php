@@ -12,6 +12,7 @@
 function handleRequest($request)
 {
     $item = [
+        'iditem' => $request['iditem'],
         'name' => $request['name'],
         'description' => $request['description'],
         'price' => floatval($request['price']),

@@ -9,8 +9,7 @@ require_once __DIR__ . "/../Common/twigTune.php";
 
 function newAction()
 {
-    global $getTwig;
-    $twig = $getTwig();
+    $twig = getTwig();
     echo $twig->render('/View/new.html.twig', [
         'action' => '/create'
     ]);
