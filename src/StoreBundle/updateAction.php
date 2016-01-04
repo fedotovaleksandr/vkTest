@@ -31,16 +31,17 @@ function updateAction()
         . " WHERE iditem=" . $item['iditem'];
 
     $resultUpdate = mysqli_query($mysqli, $queryUpdate);
-
+    $resultError = mysqli_error($mysqli);
+    db_mysqli_close($mysqli);
 
     if (!$resultUpdate) {
-        addAlert('danger','Произошла ошибка записи:'. mysqli_error($mysqli));
+        addAlert('danger','Произошла ошибка записи:'. $resultError);
         $url = 'http://' . $_SERVER['HTTP_HOST'] . "/";
         header('Location: ' . $url);
         exit();
     };
 
-    db_mysqli_close($mysqli);
+
     addAlert('success','Продукт сохранен!');
     $url = 'http://' . $_SERVER['HTTP_HOST'] . "/";
     header('Location: ' . $url);

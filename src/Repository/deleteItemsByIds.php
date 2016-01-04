@@ -8,7 +8,7 @@
 require_once __DIR__ . "/../Database/db_mysqli_close.php";
 require_once __DIR__ . "/../Database/db_mysqli_connect.php";
 function deleteItemsByIds($ids){
-
+    $_return = true;
     $table = [
         'name' => 'item',
         'dbname' => 'db_vktest',
@@ -21,14 +21,16 @@ function deleteItemsByIds($ids){
     $result = mysqli_query($mysqli, $sqlQuery);
 
     $rows = [];
+
     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
     {
         $rows[] = $row;
     }
+
     if (mysqli_affected_rows($mysqli)<= 0 ){
-        return false;
+        $_return=false;
     }
     db_mysqli_close($mysqli);
 
-    return true;
+    return $_return;
 }

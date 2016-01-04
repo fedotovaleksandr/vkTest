@@ -52,6 +52,10 @@ $config = [
     'twig' => [
         'cache' => __DIR__ . '/tmp',
         'auto_reload' => true
+    ],
+    'memcache' => [
+        'host' => 'localhost',
+        'port' => 11211
     ]
 
 ];

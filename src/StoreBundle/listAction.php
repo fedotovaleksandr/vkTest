@@ -8,6 +8,8 @@
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . "/../Database/db_mysqli_close.php";
 require_once __DIR__ . "/../Database/db_mysqli_connect.php";
+require_once __DIR__ . "/../Database/db_mysqli_query_fetch.php";
+
 function listAction()
 {
     global $config;
@@ -42,7 +44,7 @@ function listAction()
 
     $resultStore = mysqli_query($mysqli, 'SELECT s.countitems FROM store AS s WHERE s.idstore = 1');
     $rowTotal=mysqli_fetch_array($resultStore, MYSQLI_ASSOC);
-
+    //db_mysqli_query_fetch($mysqli,$sqlQuery,MYSQLI_ASSOC);
     $rows = [];
     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
     {

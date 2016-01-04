@@ -34,16 +34,15 @@ function createAction()
 
     $resultInsert = mysqli_query($mysqli, $queryInsert);
     $resultUpdate = mysqli_query($mysqli, $queryUpdate);
-
+    $resultError = mysqli_error($mysqli);
+    db_mysqli_close($mysqli);
 
     if (!$resultInsert || !$resultUpdate) {
-        addAlert('danger', 'Произошла ошибка записи:' . mysqli_error($mysqli));
+        addAlert('danger', 'Произошла ошибка записи:' . $resultError);
         $url = 'http://' . $_SERVER['HTTP_HOST'] . "/";
         header('Location: ' . $url);
         exit();
     };
-
-    db_mysqli_close($mysqli);
     addAlert('success', 'Продукт добавлен');
     $url = 'http://' . $_SERVER['HTTP_HOST'] . "/";
     header('Location: ' . $url);
