@@ -11,19 +11,15 @@
                 {
                     "orderable": true,
                     "data": "iditem"
-
                 },
-
                 {
                     "orderable": false,
                     "data": "name"
                 },
-
                 {
                     "orderable": false,
                     "data": "description"
                 },
-
                 {
                     "orderable": true,
                     "data": "price"
@@ -32,8 +28,8 @@
                     "orderable": false,
                     "data": "url",
                     "render": function (data, type, full, meta) {
-                        if (data == null)
-                            data = '/static/no_image.png';
+                        if (!data)
+                            data = '/static/public/no_image.jpg';
 
                         element = '<div class="user-panel">' +
                                 '<div class="pull-left image">' +
@@ -53,7 +49,7 @@
             rowCallback: function (row, data) {
 
                 var actions = '<a href="/edit?id=' + data.iditem + '" class="btn btn-primary btn-xs">Изменить</a>' +
-                        '<button data-url="/delete" data-preaction="confirm_delete" data-tableid="tablegridthread" data-field="threadid" class="btn btn-danger btn-xs ajaxbutton">Удалить</button>';
+                        '<button data-url="/delete" data-preaction="confirm_delete" data-tableid="tablegrid" data-field="iditem" class="btn btn-danger btn-xs ajaxbutton">Удалить</button>';
                 $('td:eq(5)', row).html(actions);
             },
             dom: 'T<"clear">lfrtip',
@@ -84,14 +80,14 @@
                             /**
                              *
                              * @param object
-                             *  -datatableid
-                             *  -idname
+                             *  -tableid
+                             *  -field
                              *  -url
                              *  -helpdata
                              */
                             var current = new $.MultiSelectButton({
-                                datatableid: 'tablegrid',
-                                idname: 'iditem',
+                                tableid: 'tablegrid',
+                                field: 'iditem',
                                 url: '/delete'
                             })
                             if (confirm_delete())

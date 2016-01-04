@@ -8,6 +8,8 @@
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . "/../Common/handleRequest.php";
 require_once __DIR__ . "/../Common/addAlert.php";
+require_once __DIR__ . "/../Database/db_mysqli_close.php";
+require_once __DIR__ . "/../Database/db_mysqli_connect.php";
 function createAction()
 {
     global $config;
@@ -19,15 +21,8 @@ function createAction()
     ];
     $item = handleRequest($_POST);
 
+    $mysqli = db_mysqli_connect($table['dbname']);
 
-    $dbParam = $config['databases'][$table['dbname']];
-    $mysqli = mysqli_connect($dbParam['host'], $dbParam['user'], $dbParam['password'], $table['dbname'], $dbParam['port']);
-    if (mysqli_connect_errno()) {
-        addAlert('danger','Нет подключения к базе данных:'. mysqli_connect_error());
-        $url = 'http://' . $_SERVER['HTTP_HOST'] . "/";
-        header('Location: ' . $url);
-        exit();
-    };
     $queryInsert = "INSERT INTO item (name,description,price,url) VALUES ("
         . "'" . mysqli_real_escape_string($mysqli, $item['name']) . "',"
         . "'" . mysqli_real_escape_string($mysqli, $item['description']) . "',"
@@ -42,14 +37,14 @@ function createAction()
 
 
     if (!$resultInsert || !$resultUpdate) {
-        addAlert('danger','Произошла ошибка записи:'. mysqli_error($mysqli));
+        addAlert('danger', 'Произошла ошибка записи:' . mysqli_error($mysqli));
         $url = 'http://' . $_SERVER['HTTP_HOST'] . "/";
         header('Location: ' . $url);
         exit();
     };
 
-    mysqli_close($mysqli);
-    addAlert('success','Продукт добавлен');
+    db_mysqli_close($mysqli);
+    addAlert('success', 'Продукт добавлен');
     $url = 'http://' . $_SERVER['HTTP_HOST'] . "/";
     header('Location: ' . $url);
 }

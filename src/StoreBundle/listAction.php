@@ -6,6 +6,8 @@
  * Time: 14:13
  */
 require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . "/../Database/db_mysqli_close.php";
+require_once __DIR__ . "/../Database/db_mysqli_connect.php";
 function listAction()
 {
     global $config;
@@ -34,15 +36,8 @@ function listAction()
     $end=$start+intval($_GET['length']);
     $sqlQuery = $sqlQuery . ' LIMIT ' . $start . ',' . $_GET['length'];
 
+    $mysqli =db_mysqli_connect($table['dbname']);
 
-    $dbParam = $config['databases'][$table['dbname']];
-    $mysqli = mysqli_connect($dbParam['host'], $dbParam['user'], $dbParam['password'], $table['dbname'], $dbParam['port']);
-    if (mysqli_connect_errno()) {
-        addAlert('danger','Нет подключения к базе данных:'. mysqli_connect_error());
-        $url = 'http://' . $_SERVER['HTTP_HOST'] . "/";
-        header('Location: ' . $url);
-        exit();
-    };
     $result = mysqli_query($mysqli, $sqlQuery);
 
     $resultStore = mysqli_query($mysqli, 'SELECT s.countitems FROM store AS s WHERE s.idstore = 1');
@@ -61,6 +56,6 @@ function listAction()
         'draw'=>$_GET['draw'],
         'start'=>$_GET['start']
     ];
-    mysqli_close($mysqli);
+    db_mysqli_close($mysqli);
     echo json_encode($response);
 }
