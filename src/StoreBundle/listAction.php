@@ -8,56 +8,67 @@
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . "/../Database/db_mysqli_close.php";
 require_once __DIR__ . "/../Database/db_mysqli_connect.php";
-require_once __DIR__ . "/../Database/db_mysqli_query_fetch.php";
+require_once __DIR__ . "/../Database/db_mysqli_query_fetch_list.php";
+require_once __DIR__ . "/../Database/db_mysqli_query_fetch_store.php";
+require_once __DIR__ . "/../Common/buildListItemQuery.php";
 
 function listAction()
 {
     global $config;
 
-    $table = [
-        'name' => 'item',
-        'dbname' => 'db_vktest',
-        'as' => 'i'
-    ];
-    $sqlQuery = 'SELECT ';
     $columnsName = [];
     foreach ($_GET['columns'] as $column) {
         if (!empty($column['data'])) {
-            $columnsName[] = $table['as'] . '.' . $column['data'];
+            $columnsName[] = $column['data'];
         }
     };
-    $sqlQuery = $sqlQuery . implode(",", $columnsName) . ' ';
-    $sqlQuery = $sqlQuery . 'FROM ' . $table['name'] . ' as ' . $table['as'];
     $order = $_GET['order'][0];
     $orderColumn = $order['column'];
-    $sqlQuery = $sqlQuery . ' ORDER BY ' . $columnsName[$orderColumn] . ' ' . $order['dir'];
-    /**
-     * @todo edit limit
-     */
-    $start=intval($_GET['start']);
-    $end=$start+intval($_GET['length']);
-    $sqlQuery = $sqlQuery . ' LIMIT ' . $start . ',' . $_GET['length'];
+    $start = intval($_GET['start']);
 
-    $mysqli =db_mysqli_connect($table['dbname']);
+    $sqlAssoc = [
+        'table' => [
+            'name' => 'item',
+            'dbname' => 'db_vktest',
+            'as' => 'i'
+        ],
+        'query' => [
+            'select' => $columnsName,
+            'from' => 'item',
+            'order' => [
+                'column' => $columnsName[$orderColumn],
+                'dir' => $order['dir']
+            ],
+            'start' => $start,
+            'length' => $_GET['length']
+        ]
 
-    $result = mysqli_query($mysqli, $sqlQuery);
-
-    $resultStore = mysqli_query($mysqli, 'SELECT s.countitems FROM store AS s WHERE s.idstore = 1');
-    $rowTotal=mysqli_fetch_array($resultStore, MYSQLI_ASSOC);
-    //db_mysqli_query_fetch($mysqli,$sqlQuery,MYSQLI_ASSOC);
-    $rows = [];
-    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-    {
-        $rows[] = $row;
-    }
-
-    $response= [
-        'recordsTotal'=>$rowTotal['countitems'],
-        'recordsFiltered'=>$rowTotal['countitems'],
-        'data'=>$rows,
-        'draw'=>$_GET['draw'],
-        'start'=>$_GET['start']
     ];
+
+    $mysqli = db_mysqli_connect($sqlAssoc['table']['dbname']);
+    $rowTotal = db_mysqli_query_fetch_store($mysqli, 'SELECT s.countitems FROM store AS s WHERE s.idstore = 1', MYSQLI_ASSOC)[0];
+    $sqlQueryes = buildListItemQuery($sqlAssoc, $rowTotal['countitems']);
+    $rows = db_mysqli_query_fetch_list($mysqli, $sqlQueryes, MYSQLI_ASSOC);
     db_mysqli_close($mysqli);
+
+//    var_dump($_SESSION);
+//    var_dump($sqlQueryes);
+
+    $_SESSION['list'] = [
+        'lastitem' => $rows[count($rows) - 1],
+        'firstitem' => $rows[0],
+        'lastpage' => $start,
+        'slowQueryType'=>$sqlQueryes['slowQueryType']
+    ];
+
+
+    $response = [
+        'recordsTotal' => $rowTotal['countitems'],
+        'recordsFiltered' => $rowTotal['countitems'],
+        'data' => $rows,
+        'draw' => $_GET['draw'],
+        'start' => $_GET['start']
+    ];
+
     echo json_encode($response);
 }

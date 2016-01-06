@@ -15,12 +15,12 @@
 <pre>
     *)+routing
     *)+(AdminLTE) choose front lib
-    *)(i have min files,no need...)tune gulp file
+    *)-(i have min files,no need...)tune gulp file
     *)+(twig) choose template tools
-    *)(no need...)some composer
-    *)create actions
-    *)memcached
-    *)mysql
+    *)-(no need...)some composer
+    *)+create actions
+    *)+memcached
+    *)+mysql
     *)double validate
 </pre>    
 <p>4)testing</p>

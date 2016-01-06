@@ -13,6 +13,7 @@ require_once __DIR__ . "/../Database/db_mysqli_connect.php";
 function createAction()
 {
     global $config;
+    $params = $config['memcache'];
 
     $table = [
         'name' => 'item',
@@ -43,6 +44,11 @@ function createAction()
         header('Location: ' . $url);
         exit();
     };
+
+    $memcache = memcache_connect($params['host'], $params['port']);
+    memcache_delete($memcache,['list','countitems']);
+    memcache_close($memcache);
+
     addAlert('success', 'Продукт добавлен');
     $url = 'http://' . $_SERVER['HTTP_HOST'] . "/";
     header('Location: ' . $url);
