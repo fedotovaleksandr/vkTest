@@ -24,7 +24,7 @@ function db_mysqli_query_fetch_store($mysqli, $query, $MYSQLI_TYPE)
             $data[] = $row;
         }
         memcache_set($memcache,$memcacheQueryKey,$data,0,60*10);
-        $memcache->tag_add('countitems',$memcacheQueryKey);
+
     }
     memcache_close($memcache);
     return $data;

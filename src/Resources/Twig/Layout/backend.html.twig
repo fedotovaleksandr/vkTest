@@ -2,16 +2,21 @@
 
 {% block stylesheets %}
     <!-- bootstrap 3.0.2 -->
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
     <!-- Ionicons -->
-    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css"/>
+
+    <!-- font Awesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css"/>
 
     <!-- DATA TABLES -->
-    <link href="/static/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/static/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
 
     <!-- DATA TABLES -->
-    <link href="//cdn.datatables.net/tabletools/2.2.0/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" />
+    <link href="//cdn.datatables.net/tabletools/2.2.0/css/dataTables.tableTools.min.css" rel="stylesheet"
+          type="text/css"/>
 
     <!-- Theme style -->
     <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
@@ -21,26 +26,26 @@
 
     <link rel="stylesheet" href="/static/public/vktest.css">
 
-
+    <link href='https://fonts.googleapis.com/css?family=Tenor+Sans&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
 {% endblock %}
 
 {% block body_params %} class="skin-blue-light sidebar-mini" {% endblock %}
 
 {% block header %}
-{% include 'Layout/ag_header.html.twig' %}
+    {% include 'Layout/ag_header.html.twig' %}
 {% endblock %}
 
 {% block main_menu %}
-     <aside class="main-sidebar">
-         <section class="sidebar">
+    <aside class="main-sidebar">
+        <section class="sidebar">
 
-                <!-- sidebar menu: : style can be found in sidebar.less -->
-                {% block menu %}
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            {% block menu %}
 
-                {% endblock %}
+            {% endblock %}
 
-             </section>
+        </section>
     </aside>
 {% endblock %}
 
@@ -48,7 +53,7 @@
 {% endblock %}
 
 {% block footer %}
-{% include 'Layout/ag_footer.html.twig' %}
+    {% include 'Layout/ag_footer.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
@@ -73,13 +78,13 @@
 
     <script src="static/public/vktest.js"></script>
 
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+    {#I think ,i not need this...#}
+    {#<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->#}
+    {#<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->#}
+    {#<!--[if lt IE 9]>#}
+    {#<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>#}
+    {#<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>#}
+    {#<![endif]-->#}
 
 
 

@@ -51,7 +51,7 @@ $config = [
      */
     'twig' => [
         'cache' => __DIR__ . '/tmp',
-        'auto_reload' => true
+        'auto_reload' => false
     ],
     'memcache' => [
         'host' => 'localhost',

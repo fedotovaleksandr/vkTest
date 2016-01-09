@@ -29,9 +29,12 @@ function db_mysqli_query_fetch_list($mysqli, $query, $MYSQLI_TYPE)
             $data[] = $row;
         }
 
-        memcache_set($memcache,$memcacheQueryKey,$data,0,60*10);
-        $memcache->tag_add('list',$memcacheQueryKey);
-
+        //another proc
+       /* $pid = pcntl_fork();
+        if ($pid == 0) {*/
+            memcache_set($memcache, $memcacheQueryKey, $data, 0, 60 * 10);
+        /*    posix_kill(posix_getpid(), SIGTERM);
+        }*/
     }
     memcache_close($memcache);
     return $data;

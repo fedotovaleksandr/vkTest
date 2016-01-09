@@ -9,10 +9,9 @@ require_once __DIR__ . "/../Database/db_mysqli_close.php";
 require_once __DIR__ . "/../Database/db_mysqli_connect.php";
 require_once __DIR__ . '/../../config.php';
 function deleteItemsByIds($ids){
-    global $config;
-    $params = $config['memcache'];
 
-    $_return = true;
+
+
     $table = [
         'name' => 'item',
         'dbname' => 'db_vktest',
@@ -24,25 +23,28 @@ function deleteItemsByIds($ids){
 
     $result = mysqli_query($mysqli, $sqlQuery);
 
-    $rows = [];
-
-    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-    {
-        $rows[] = $row;
-    }
-
-    $memcache = memcache_connect($params['host'], $params['port']);
-    memcache_delete($memcache,['list','countitems']);
-    memcache_close($memcache);
 
 
-    if ($deleteRows = mysqli_affected_rows($mysqli)<= 0 ){
+    $_return = $result;
+    if (($deleteRows = mysqli_affected_rows($mysqli))<= 0 ){
         $_return=false;
-    }else
-    {
-        $resultUpdate = mysqli_query($mysqli, 'UPDATE store SET countitems = countitems -'. $deleteRows .' WHERE idstore = 1');
     }
+    var_dump($_return);
+    var_dump($sqlQuery);
+    var_dump($deleteRows);
+
     db_mysqli_close($mysqli);
+
+    if ($_return)
+    {
+        $pid = pcntl_fork();
+        if ($pid == 0) {
+            changeCountItemsById(1,$deleteRows*-1);
+            exit();
+        }
+
+    }
+
 
     return $_return;
 }

@@ -7,6 +7,7 @@
  */
 function sessionInit(){
     session_start();
+
     if (isset($_SESSION['clear'])) {
         if ($_SESSION['clear'] > 0) {
             session_unset();
@@ -15,4 +16,5 @@ function sessionInit(){
             $_SESSION['clear']++;
         }
     }
+
 }

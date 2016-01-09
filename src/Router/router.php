@@ -7,9 +7,8 @@
  */
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . "/../StoreBundle/actionProvider.php";
-/**
- * use config
- */
+require_once __DIR__ . "/../Common/twigTune.php";
+
 function router()  {
     global $config;
 
@@ -27,6 +26,9 @@ function router()  {
         }
     }
     if (empty($action)) {
-        echo 'not found';
+        $twig = getTwig();
+        echo $twig->render('/View/404.html.twig', [
+            'uri' => $uri
+        ]);
     }
 };
