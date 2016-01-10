@@ -9,7 +9,7 @@ require_once __DIR__ . '/../../config.php';
 
 function db_mysqli_query_fetch_store($mysqli, $query, $MYSQLI_TYPE)
 {
-    global $config;
+    $config = getConfig();
     $params = $config['memcache'];
     $memcache = memcache_connect($params['host'], $params['port']);
 

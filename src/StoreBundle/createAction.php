@@ -14,7 +14,7 @@ require_once __DIR__ . "/../Repository/changeCountItemsById.php";
 
 function createAction()
 {
-    global $config;
+    $config = getConfig();
     $params = $config['memcache'];
 
     $table = [
@@ -48,7 +48,7 @@ function createAction()
     $pid = pcntl_fork();
     if ($pid == 0) {
         changeCountItemsById(1, 1);
-        exit();
+        exit(0);
     }
     addAlert('success', 'Продукт добавлен');
     $url = 'http://' . $_SERVER['HTTP_HOST'] . "/";

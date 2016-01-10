@@ -10,7 +10,7 @@ require_once __DIR__ . "/../Database/db_mysqli_close.php";
 require_once __DIR__ . "/../Database/db_mysqli_connect.php";
 
 function changeCountItemsById($id,$val) {
-    global $config;
+    $config = getConfig();
     $params = $config['memcache'];
 
     $table = [

@@ -8,7 +8,7 @@
 require_once __DIR__ . '/../../config.php';
 function db_mysqli_connect($db_name)
 {
-    global $config;
+    $config = getConfig();
     $dbParam = $config['databases'][$db_name];
     $mysqli = mysqli_connect($dbParam['host'], $dbParam['user'], $dbParam['password'], $db_name, $dbParam['port']);
     if (mysqli_connect_errno()) {

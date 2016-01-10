@@ -10,7 +10,7 @@ require_once __DIR__ . "/../StoreBundle/actionProvider.php";
 require_once __DIR__ . "/../Common/twigTune.php";
 
 function router()  {
-    global $config;
+    $config = getConfig();
 
     $uri = $_SERVER['REQUEST_URI'];
     $type = $_SERVER['REQUEST_METHOD'];

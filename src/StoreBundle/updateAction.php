@@ -12,7 +12,7 @@ require_once __DIR__ . "/../Database/db_mysqli_close.php";
 require_once __DIR__ . "/../Database/db_mysqli_connect.php";
 function updateAction()
 {
-    global $config;
+    $config = getConfig();
 
     $table = [
         'name' => 'item',

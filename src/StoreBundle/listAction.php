@@ -15,7 +15,7 @@ require_once __DIR__ . "/../Common/afterListAction.php";
 
 function listAction()
 {
-    global $config;
+    $config = getConfig();
 
     $columnsName = [];
     foreach ($_GET['columns'] as $column) {
