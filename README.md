@@ -26,13 +26,11 @@
 <p>4)+testing</p>
 <p>5)+refactor</p>
 <p>6)+stress testing</p>
-
-
     #)Testing with https://blazemeter.com/ (2000 clients from West Europe , on chached data)
-        =)Results: http://95.213.195.56/Analitics/bzm_aggregated_table_15249325_11_01_2016__0_48_44.csv
+        =)Results: <a href='http://95.213.195.56/Analitics/bzm_aggregated_table_15249325_11_01_2016__0_48_44.csv'Blazemeter</a>
 
     #)Testing with https://loader.io (2000 clients from Usa,West Europe,Azia , on chached data)
-        =)Results: http://95.213.195.56/Analitics/loaderio.html
+        =)Results: <a href='http://95.213.195.56/Analitics/loaderio.html'>Loader.IO</a>
 
 
 
