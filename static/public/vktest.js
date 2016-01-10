@@ -95,7 +95,7 @@ $(function () {
             'field': field,
             'tableid': tableid,
             'helpdata': null,
-            'preaction':preaction
+            'preaction': preaction
         };
 
         var ajaxButton = new $.AjaxButton(object);
@@ -103,17 +103,47 @@ $(function () {
             ajaxButton.start();
     });
 
-    var forms = document.getElementsByTagName('form');
-    for (var i = 0; i < forms.length; i++) {
-        forms[i].noValidate = true;
+    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+        var forms = document.getElementsByTagName('form');
+        for (var i = 0; i < forms.length; i++) {
+            forms[i].noValidate = true;
 
-        forms[i].addEventListener('submit', function(event) {
-            //Prevent submission if checkValidity on the form returns false.
-            if (!event.target.checkValidity()) {
-                event.preventDefault();
-                //Implement you own means of displaying error messages to the user here.
-            }
-        }, false);
+            forms[i].addEventListener('submit', function (event) {
+                //Prevent submission if checkValidity on the form returns false.
+                if (!event.target.checkValidity()) {
+                    event.preventDefault();
+                    $(event.currentTarget).find('.form-group').each(function () {
+                            var _this = this;
+                            $(_this).removeClass("has-error");
+                            $(_this).find('input').each(function () {
+
+                                    if ($(this).val() == '' && $(this).attr('required')) {
+                                        $(_this).addClass("has-error");
+                                        return false;
+                                    }
+
+                                    if (!$.isNumeric($(this).val()) && $(this).attr('type') == 'number') {
+                                        $(_this).addClass("has-error");
+                                        return false;
+                                    }
+                                    var pattern = $(this).attr('pattern')
+                                    if ($(this).val() != '' && pattern) {
+                                        if (!$(this).val().match(pattern)) {
+                                            $(_this).addClass("has-error");
+                                            return false;
+                                        }
+
+                                    }
+
+                                }
+                            )
+
+                        }
+                    )
+                    //Implement you own means of displaying error messages to the user here.
+                    return true;
+                }
+            }, false);
+        }
     }
-
 });
