@@ -21,10 +21,20 @@
     *)+create actions
     *)+memcached
     *)+mysql
-    *)double validate
+    *)(no need,i have alert on errors)double validate
 </pre>    
-<p>4)testing</p>
-<p>5)refactor</p>
-<p>6)stress testing</p>
-<p>7)</p>
+<p>4)+testing</p>
+<p>5)+refactor</p>
+<p>6)+stress testing</p>
+
+
+    #)Testing with https://blazemeter.com/ (2000 clients from West Europe , on chached data)
+        =)Results: http://95.213.195.56/Analitics/bzm_aggregated_table_15249325_11_01_2016__0_48_44.csv
+
+    #)Testing with https://loader.io (2000 clients from Usa,West Europe,Azia , on chached data)
+        =)Results: http://95.213.195.56/Analitics/loaderio.html
+
+
+
+
 
